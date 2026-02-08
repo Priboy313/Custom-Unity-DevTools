@@ -112,7 +112,7 @@ string randomWord = greetings.GetRandom();
 int[] emptyArray = new int[0];
 int result = emptyArray.GetRandom(); // Returns 0 (default int), no errors
 ```
-# 🔄 Array Extensions
+# 🔄 Array Extensions (warning, not for real projects!)
 Important: All array extension methods return NEW arrays. Original arrays remain unchanged.
 
 ## Adding Elements
