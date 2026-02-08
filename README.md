@@ -1,1 +1,36 @@
-# Custom-Unity-Packages
+# DevTools - Unity Development Utilities
+# Overview
+DevTools is a collection of practical utility packages for Unity development designed to streamline common workflows, reduce boilerplate code, and improve code readability. These tools are battle-tested and production-ready for both 2D and 3D Unity projects.
+
+# Available Packages
+## 🛠 DevTools.Extensions
+A comprehensive collection of C# extension methods for Unity that make common operations more intuitive and reduce repetitive code patterns. This package includes:
+
+- Array Extensions - Convenient methods for manipulating arrays (Add, InsertAt, RemoveAt, etc.)
+
+- Random Extensions - Fluent syntax for random number generation and probability checks
+
+- Layer Extensions - Simplified layer mask operations without bitwise operators
+
+- Transform Extensions - Quick transform reset and manipulation methods
+
+- Collection Extensions - Safe random element retrieval from collections
+
+Key Benefits:
+
+- Reduces boilerplate code by up to 50% for common operations
+
+- Improves code readability with fluent, intuitive syntax
+
+- 100% compatible with all Unity versions (2018.4+)
+
+- Zero dependencies, minimal performance overhead
+
+# Installation
+
+## Manual Installation
+Download the latest release
+
+Extract to your project's `Assets/` folder
+
+(BTW recommened into `Assets/_ExternalAssets/"` folder)
