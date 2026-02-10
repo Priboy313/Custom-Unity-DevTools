@@ -2,7 +2,6 @@ using UnityEngine;
 
 namespace DevTools.Extensions
 {
-
 	public static class LayerExtensions
 	{
 		/// <summary>

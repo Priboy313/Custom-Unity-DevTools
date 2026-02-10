@@ -7,11 +7,10 @@ DevTools is a collection of practical utility packages for Unity development des
 A comprehensive collection of C# extension methods for Unity that make common operations more intuitive and reduce repetitive code patterns. This package includes:
 
 **Key Features:**
-- **Array Extensions** - Convenient methods for manipulating arrays (Add, InsertAt, RemoveAt, etc.)
 - **Random Extensions** - Fluent syntax for random number generation and probability checks
 - **Layer Extensions** - Simplified layer mask operations without bitwise operators
 - **Transform Extensions** - Quick transform reset and manipulation methods
-- **Collection Extensions** - Safe random element retrieval from collections
+- **Collection Extensions** - Safe random element retrieval from collections and native validation methods
 
 **Benefits:**
 - Reduces boilerplate code

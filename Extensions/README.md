@@ -113,6 +113,34 @@ int[] emptyArray = new int[0];
 int result = emptyArray.GetRandom(); // Returns 0 (default int), no errors
 ```
 
+### Validation (Null or Empty)
+
+Quickly check if a list requires initialization or has no elements.
+
+```C#
+List<string> items = null;
+
+// Replaces: if (items == null || items.Count == 0)
+if (items.IsNullOrEmpty())
+{
+    items = new List<string>();
+}
+```
+
+### Safe Index Check
+
+Checks if an index is within the valid bounds of the collection (and checks for null). Useful before accessing arrays by index.
+
+```C#
+int index = 10;
+
+// Replaces: if (list != null && index >= 0 && index < list.Count)
+if (enemies.ContainsIndex(index))
+{
+    Attack(enemies[index]);
+}
+```
+
 
 # 🔄 Transform Extensions
 
@@ -134,6 +162,6 @@ Resets global world coordinates to Vector3.zero.
 transform.ResetWorld();
 ```
 
-# [Experimental Extensions](Experimental/README.md)
+# [Experimental Extensions](/Experimental/README.md)
 
 Non-optimal extensions, not for regualr projects use.

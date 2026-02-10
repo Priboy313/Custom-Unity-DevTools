@@ -89,7 +89,7 @@ namespace DevTools.Extensions
 		/// </summary>
 		public static Vector3 RandomXZ(this Vector3 _)
 		{
-			return Random.insideUnitCircle.ToVector3XZ();
+			return Random.insideUnitCircle.normalized.ToVector3XZ();
 		}
 
 		/// <summary>
