@@ -162,6 +162,6 @@ Resets global world coordinates to Vector3.zero.
 transform.ResetWorld();
 ```
 
-# [Experimental Extensions](/Experimental/README.md)
+# [Experimental Extensions](/Assets/_ExternalAssets/DevTools/Extensions/Experimental/README.md)
 
 Non-optimal extensions, not for regualr projects use.
