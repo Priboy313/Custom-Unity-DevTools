@@ -3,7 +3,7 @@
 DevTools is a collection of practical utility packages for Unity development designed to streamline common workflows, reduce boilerplate code, and improve code readability. These tools are battle-tested and production-ready for both 2D and 3D Unity projects.
 
 # Available Packages
-## 🛠 [DevTools.Extensions](Extensions/README.md)
+## 🛠 [DevTools.Extensions](/Assets/_ExternalAssets/DevTools/Extensions/README.md)
 A comprehensive collection of C# extension methods for Unity that make common operations more intuitive and reduce repetitive code patterns. This package includes:
 
 **Key Features:**
@@ -18,7 +18,7 @@ A comprehensive collection of C# extension methods for Unity that make common op
 - 100% compatible with all Unity versions (2018.4+)
 - Zero dependencies, minimal performance overhead
 
-📖 [Full documentation and examples](Extensions/README.md)
+📖 [Full documentation and examples](/Assets/_ExternalAssets/DevTools/Extensions/README.md)
 
 # Installation
 
