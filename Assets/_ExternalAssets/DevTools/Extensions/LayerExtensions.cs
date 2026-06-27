@@ -12,7 +12,7 @@ namespace DevTools.Extensions
 		/// <param name="layerIndex">The layer index (0-31).</param>
 		public static bool Contains(this LayerMask mask, int layerIndex)
 		{
-			return ((1 << layerIndex) & mask) != 0;
+			return (mask.value & (1 << layerIndex)) != 0;
 		}
 
 
@@ -24,6 +24,11 @@ namespace DevTools.Extensions
 		/// <param name="gameObject">The GameObject to check.</param>
 		public static bool Contains(this LayerMask mask, GameObject gameObject)
 		{
+			if (gameObject == null)
+			{
+				return false;
+			}
+
 			return (mask.value & (1 << gameObject.layer)) != 0;
 		}
 	}

@@ -26,7 +26,7 @@ namespace DevTools.Extensions
 		/// </summary>
 		public static float RandomTo(this float min, float max)
 		{
-			return Random.Range(Mathf.Min(min, max), Mathf.Max(min, max));
+			return Random.Range(min, max);
 		}
 
 		/// <summary>
@@ -83,13 +83,14 @@ namespace DevTools.Extensions
 		#region Vector Conversations
 
 		/// <summary>
-		/// Returns a random normalized vector on the XZ plane (Y = 0).
-		/// <br>Note: In C#, extension methods require an instance, so we call it from any vector (usually Vector3.zero).</br>
-		/// <br>Example: <code>Vector3.zero.RandomXZ()</code></br>
+		/// Returns a random point on a circle in the XZ plane with the specified radius around this point.
+		/// <br>Example: <code>transform.position.RandomXZ(5f)</code></br>
 		/// </summary>
-		public static Vector3 RandomXZ(this Vector3 _)
+		public static Vector3 RandomXZ(this Vector3 center, float radius = 1f)
 		{
-			return Random.insideUnitCircle.normalized.ToVector3XZ();
+			Vector2 randomOnCircle = Random.insideUnitCircle.normalized * radius;
+
+			return new Vector3(center.x + randomOnCircle.x, center.y, center.z + randomOnCircle.y);
 		}
 
 		/// <summary>

@@ -63,8 +63,11 @@ void Spawn()
 
 Helpers to work with the XZ plane (ground).
 ``` C#
-// Get a random point on the ground (Y = 0) within a unit circle
-Vector3 randomPos = Vector3.zero.RandomXZ(); 
+// Get a random point on a circle in the XZ plane (Y = 0) with a radius of 5 around the player
+Vector3 spawnPos = playerTransform.position.RandomXZ(5f);
+
+// Get a random direction vector on the XZ plane (using Vector3.zero, defaults to radius = 1)
+Vector3 randomDir = Vector3.zero.RandomXZ();
 
 // Convert any Vector2 to Vector3 (X, 0, Y)
 Vector3 groundPos = Random.insideUnitCircle.ToVector3XZ();
@@ -140,7 +143,39 @@ if (enemies.ContainsIndex(index))
     Attack(enemies[index]);
 }
 ```
+# 📐 Vector Extensions
+Fluent, allocation-free modification of immutable coordinate structures
 
+```C#
+// 3D: Modify only X component
+transform.position = transform.position.WithX(15f);
+
+// 2D: Modify only Y component (extremely useful for UI / RectTransforms)
+rectTransform.anchoredPosition = rectTransform.anchoredPosition.WithY(-250f);
+```
+# 📐 Color Extensions
+Fluent, allocation-free modification of color structures
+
+```C#
+// Quickly fade a UI Image or Sprite Renderer without resetting its RGB color
+myImage.color = myImage.color.WithAlpha(0.25f);
+```
+
+# 👾 GameObject Extensions
+Propagate parameters and secure components safely down the object hierarchy
+
+## Get or Add Component
+```C#
+// Replaces: null-checks and redundant GetComponent/AddComponent blocks
+// Uses TryGetComponent internally to prevent garbage allocation
+Rigidbody rb = gameObject.GetOrAddComponent<Rigidbody>();
+```
+
+## Recursive Layer Assignment
+```C#
+// Replaces: manually iterating through all children. Changes the layer of this GameObject and all descendants.
+gameObject.SetLayerRecursively(LayerMask.NameToLayer("Water"));
+```
 
 # 🔄 Transform Extensions
 
@@ -162,6 +197,37 @@ Resets global world coordinates to Vector3.zero.
 transform.ResetWorld();
 ```
 
+# 📊 Math Extensions
+
+Practical mathematical utility methods for common gameplay calculation patterns.
+
+## Range Remapping
+``` C#
+float health = 75f;
+
+// Map health (0 to 100) to progress slider value (0 to 1)
+// Fully safe from Division by Zero crashes
+float sliderValue = health.Remap(0f, 100f, 0f, 1f); // Returns 0.75f
+```
+
+# 🖼 UI Extensions
+
+One-line boilerplate reduction for interface layout groups
+
+## CanvasGroup Visibility
+``` C#
+[SerializeField] private CanvasGroup _settingsPanel;
+
+void TogglePanel(bool isOpen)
+{
+    // Replaces: setting alpha, interactable, and blocksRaycasts manually
+    // Greatly avoids disabling GameObjects (which resets UI states and animations)
+    _settingsPanel.SetVisibility(isOpen);
+}
+```
+
+
+
 # [Experimental Extensions](/Assets/_ExternalAssets/DevTools/Extensions/Experimental/README.md)
 
-Non-optimal extensions, not for regualr projects use.
+Non-optimal extensions, not for regular projects use.

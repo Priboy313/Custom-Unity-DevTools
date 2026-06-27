@@ -1,0 +1,11 @@
+{
+    "name": "com.priboy313.custom-unity-devtools",
+    "version": "1.0.0",
+    "displayName": "Custom Unity DevTools",
+    "description": "A collection of high-utility C# Extension Methods and tools for Unity.",
+    "unity": "2020.3",
+    "author": {
+        "name": "Priboy313",
+        "url": "https://github.com/Priboy313"
+    }
+}

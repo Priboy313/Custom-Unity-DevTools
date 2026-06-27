@@ -11,6 +11,11 @@ A comprehensive collection of C# extension methods for Unity that make common op
 - **Layer Extensions** - Simplified layer mask operations without bitwise operators
 - **Transform Extensions** - Quick transform reset and manipulation methods
 - **Collection Extensions** - Safe random element retrieval from collections and native validation methods
+- **Vector Extensions** - Fast modification for Vector3/Vector2 on the fly
+- **Color Extensions** - Fast modification for Color on the fly
+- **GameObject Extensions** - Safe component allocation and recursive layer propagation
+- **Math Extensions** - Game-math helpers such as value remapping from one range to another
+- **UI Extensions** - One-line boilerplate reduction for managing UI panels via `CanvasGroup`
 
 **Benefits:**
 - Reduces boilerplate code

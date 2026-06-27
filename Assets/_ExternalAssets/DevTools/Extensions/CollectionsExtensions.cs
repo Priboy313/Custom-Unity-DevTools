@@ -22,7 +22,7 @@ namespace DevTools.Extensions
 		/// <summary>
 		/// Checks if the collection is null or has no elements.
 		/// </summary>
-		public static bool IsNullOfEmpty<T>(this ICollection<T> collection)
+		public static bool IsNullOrEmpty<T>(this ICollection<T> collection)
 		{
 			return collection == null || collection.Count == 0;
 		}
@@ -31,7 +31,7 @@ namespace DevTools.Extensions
 		/// Safely checks if the index is within the bounds of the collection.
 		/// <br>Returns false if collection is null.</br>
 		/// </summary>
-		public static bool ContainsIndex<T>(this ICollection<T> collection, int index)
+		public static bool ContainsIndex<T>(this IList<T> collection, int index)
 		{
 			return collection != null && index >= 0 && index < collection.Count;
 		}

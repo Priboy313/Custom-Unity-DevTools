@@ -25,19 +25,22 @@ namespace DevTools.Extensions.Experimental
 		}
 
 		/// <summary>
-		/// Creates a new array with added items.
-		/// <br>Returns a NEW array with combined elements.</br>
+		/// Creates a new array with the added item.
 		/// </summary>
+		/// <remarks>
+		/// WARNING: Heavy allocation! This method copies the entire array behind the scenes. 
+		/// Do NOT use inside Update() or tight gameplay loops. Use List&lt;T&gt; instead for dynamic collections.
+		/// </remarks>
 		public static T[] AddRange<T>(this T[] array, params T[] items)
 		{
 			if (array == null)
 			{
-				return items ?? new T[0];
+				return items?.Copy() ?? new T[0];
 			}
 
 			if (items == null || items.Length == 0)
 			{
-				return array;
+				return array.Copy();
 			}
 
 			T[] newArray = new T[array.Length + items.Length];
