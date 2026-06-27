@@ -95,7 +95,7 @@ private void OnCollisionEnter(Collision other)
 }
 ```
 
-## 📦 Collection Extensions
+# 📦 Collection Extensions
 
 Safe methods to work with Lists, Arrays, and other collections implementing `IList<T>`.
 
