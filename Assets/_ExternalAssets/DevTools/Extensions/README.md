@@ -228,6 +228,6 @@ void TogglePanel(bool isOpen)
 
 
 
-# [Experimental Extensions](/Assets/_ExternalAssets/DevTools/Extensions/Experimental/README.md)
+# [Experimental Extensions](/Assets/_ExternalAssets/DevTools_Experimental/Extensions/README.md)
 
 Non-optimal extensions, not for regular projects use.
