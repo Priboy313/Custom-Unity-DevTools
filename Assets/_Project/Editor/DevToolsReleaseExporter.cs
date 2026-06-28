@@ -8,8 +8,10 @@ using UnityEngine;
 public static class DevToolsReleaseExporter
 {
 	private const string DevToolsAssetPath = "Assets/_ExternalAssets/DevTools";
-	private const string ExperimentalAssetPath = "Assets/_ExternalAssets/DevTools/Extensions/Experimental";
 	private const string TestsAssetPath = "Assets/_ExternalAssets/DevTools/Tests";
+
+	private const string ExperimentalSourcePath = "Assets/_ExternalAssets/DevTools_Experimental";
+	private const string ExperimentalTestsAssetPath = "Assets/_ExternalAssets/DevTools_Experimental/Tests";
 
 	[MenuItem("Tools/DevTools/Export as .unitypackage")]
 	public static void ExportAsUnityPackage()
@@ -17,19 +19,19 @@ public static class DevToolsReleaseExporter
 		string releasesDir = GetReleasesDirectory();
 		string dateStr = DateTime.Now.ToString("yyyy-MM-dd");
 
-		// Пакет 1: DevTools (без папок Experimental, Editor и Tests)
+		// Пакет 1: DevTools (без папок Editor и Tests)
 		string packagePath1 = Path.Combine(releasesDir, $"DevTools-{dateStr}.unitypackage");
 		string[] assets1 = GetAssetsUnderPath(DevToolsAssetPath)
-			.Where(path => !path.StartsWith(ExperimentalAssetPath, StringComparison.OrdinalIgnoreCase))
 			.Where(path => !path.StartsWith(TestsAssetPath, StringComparison.OrdinalIgnoreCase))
 			.ToArray();
 
 		AssetDatabase.ExportPackage(assets1, packagePath1, ExportPackageOptions.Default);
 
-		// Пакет 2: DevTools_Experimental (с Experimental, без Editor и Tests)
+		// Пакет 2: DevTools_Experimental (включает стабильный код и экспериментальный без тестов)
 		string packagePath2 = Path.Combine(releasesDir, $"DevTools_Experimental-{dateStr}.unitypackage");
 		string[] assets2 = GetAssetsUnderPath(DevToolsAssetPath)
 			.Where(path => !path.StartsWith(TestsAssetPath, StringComparison.OrdinalIgnoreCase))
+			.Concat(GetAssetsUnderPath(ExperimentalSourcePath).Where(path => !path.StartsWith(ExperimentalTestsAssetPath, StringComparison.OrdinalIgnoreCase)))
 			.ToArray();
 
 		AssetDatabase.ExportPackage(assets2, packagePath2, ExportPackageOptions.Default);
@@ -52,19 +54,13 @@ public static class DevToolsReleaseExporter
 			if (Directory.Exists(tempDir)) Directory.Delete(tempDir, true);
 		};
 
-		// --- Архив 1: DevTools (Стабильный, без Experimental, Editor и Tests) ---
+		// --- Архив 1: DevTools (Стабильный, без Editor и Tests) ---
 		cleanTemp();
 		string zipPath1 = Path.Combine(releasesDir, $"DevTools-{dateStr}.zip");
 		if (File.Exists(zipPath1)) File.Delete(zipPath1);
 
 		string tempDevToolsDir1 = Path.Combine(tempDir, "DevTools");
 		CopyDirectory(Path.Combine(Application.dataPath, "_ExternalAssets/DevTools"), tempDevToolsDir1);
-
-		// Удаляем Experimental и его .meta
-		string tempExperimental1 = Path.Combine(tempDevToolsDir1, "Extensions/Experimental");
-		if (Directory.Exists(tempExperimental1)) Directory.Delete(tempExperimental1, true);
-		string tempExperimentalMeta1 = Path.Combine(tempDevToolsDir1, "Extensions/Experimental.meta");
-		if (File.Exists(tempExperimentalMeta1)) File.Delete(tempExperimentalMeta1);
 
 		// Удаляем Tests и его .meta
 		string tempTests1 = Path.Combine(tempDevToolsDir1, "Tests");
@@ -77,15 +73,13 @@ public static class DevToolsReleaseExporter
 
 		ZipFile.CreateFromDirectory(tempDir, zipPath1);
 
-		// --- Архив 2: DevTools_Experimental (Экспериментальный, с сохранением Experimental, без Editor и Tests) ---
+		// --- Архив 2: DevTools_Experimental (С копированием экспериментальных скриптов внутрь Extensions/Experimental) ---
 		cleanTemp();
 		string zipPath2 = Path.Combine(releasesDir, $"DevTools_Experimental-{dateStr}.zip");
 		if (File.Exists(zipPath2)) File.Delete(zipPath2);
 
 		string tempDevToolsDir2 = Path.Combine(tempDir, "DevTools");
 		CopyDirectory(Path.Combine(Application.dataPath, "_ExternalAssets/DevTools"), tempDevToolsDir2);
-
-		// Папку Experimental НЕ удаляем! Она остается внутри Extensions.
 
 		// Удаляем Tests и его .meta
 		string tempTests2 = Path.Combine(tempDevToolsDir2, "Tests");
@@ -95,6 +89,19 @@ public static class DevToolsReleaseExporter
 
 		// Удаляем Editor
 		DeleteEditorFolders(tempDevToolsDir2);
+
+		// Создаем целевую папку Extensions/Experimental в архиве
+		string tempExperimentalDest = Path.Combine(tempDevToolsDir2, "Extensions/Experimental");
+
+		// Копируем содержимое папки DevTools_Experimental/Extensions (ArrayExtensions.cs и прочее)
+		CopyDirectory(Path.Combine(Application.dataPath, "_ExternalAssets/DevTools_Experimental/Extensions"), tempExperimentalDest);
+
+		// Копируем мета-файл и переименовываем его в Experimental.meta, чтобы сохранить оригинальный GUID папки для Unity
+		string localExperimentalMeta = Path.Combine(Application.dataPath, "_ExternalAssets/DevTools_Experimental.meta");
+		if (File.Exists(localExperimentalMeta))
+		{
+			File.Copy(localExperimentalMeta, Path.Combine(tempDevToolsDir2, "Extensions/Experimental.meta"), true);
+		}
 
 		ZipFile.CreateFromDirectory(tempDir, zipPath2);
 
