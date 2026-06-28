@@ -27,6 +27,25 @@ A comprehensive collection of C# extension methods for Unity that make common op
 
 # Installation
 
+## Unity Package Manager
+1. Open Package Manager
+2. Set **Add package from git URL...**
+3. Insert link:
+```
+https://github.com/Priboy313/Custom-Unity-DevTools.git?path=Assets/_ExternalAssets/DevTools
+```
+4. Tap **Add** and Unity automaticly download and setup DevTool into project **Packages**
+
+## Directly editing manifest.json
+1. Open the root folder of your Unity project.
+2. Go to the Packages/ folder and open the manifest.json file with any text editor.
+3. Add the following line to the "dependencies" block:
+
+```
+"com.priboy313.custom-unity-devtools": "https://github.com/Priboy313/Custom-Unity-DevTools.git?path=Assets/_ExternalAssets/DevTools"
+```
+4. Save the file. Unity will automatically update dependencies and download the stable package.
+
 ## Manual Installation
 1. Download the latest release
 2. Extract to your project's `Assets/` folder
